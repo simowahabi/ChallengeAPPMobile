@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_all">5dp</dimen>
+    <dimen name="padding_all">5dp</dimen>
+    <dimen name="grid_margin_one">3dp</dimen>
+    <dimen name="grid_pict_one">1dp</dimen>
+    <dimen name="stroke_button">1dp</dimen>
+    <dimen name="raduis_button">10dp</dimen>
+    <dimen name="album_height">100dp</dimen>
+    <dimen name="small_margin">2dp</dimen>
+    <dimen name="text_size1">15dp</dimen>
+    <dimen name="text_size2">10dp</dimen>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hidden FB pictures</string>
+    <string name="facebook_app_id">1844169422560571</string>
+    <string name="fb_login_protocol_scheme">fb1844169422560571</string>
+    <string name="name_of_item_in_page_albums">6</string>
+    <string name="name_of_item_in_page_pictures">12</string>
+
+</resources>

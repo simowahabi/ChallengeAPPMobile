@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hidden.mohamedwahabi.hiddenfbpictures.MainPictures">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridView
+        android:layout_weight="50"
+        android:id="@+id/pictlist"
+        android:numColumns="2"
+        android:verticalSpacing="@dimen/grid_pict_one"
+        android:horizontalSpacing="@dimen/grid_pict_one"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:background="@color/colorTranspart"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:onClick="Prev"
+            android:text="Previews"
+            android:id="@+id/prev"
+            android:layout_weight="5"
+            android:background="@drawable/butback"
+            android:layout_width="wrap_content"
+            style="@style/butStyle"
+            android:layout_height="match_parent" />
+        <Button
+            android:onClick="Next"
+            android:text="Next"
+            android:id="@+id/next"
+            android:layout_weight="5"
+            style="@style/butStyle"
+            android:background="@drawable/butback"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
+
+</RelativeLayout>

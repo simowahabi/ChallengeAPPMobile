@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="3dp"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent">
+<ImageView
+    android:id="@+id/coverAlbum"
+    android:layout_margin="@dimen/small_margin"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/album_height" />
+    <TextView
+        android:text="title"
+        android:textColor="@color/colorwhite"
+        android:gravity="center"
+        android:id="@+id/covertitle"
+        android:textSize="@dimen/text_size1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="count"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:textSize="@dimen/text_size2"
+        android:id="@+id/covernumpic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
