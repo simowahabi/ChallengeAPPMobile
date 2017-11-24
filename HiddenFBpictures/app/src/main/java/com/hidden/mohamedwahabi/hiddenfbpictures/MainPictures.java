@@ -1,9 +1,13 @@
 package com.hidden.mohamedwahabi.hiddenfbpictures;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -26,6 +31,7 @@ import com.facebook.Profile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -34,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,6 +48,7 @@ import java.io.InputStream;
 import java.net.FileNameMap;
 import java.util.ArrayList;
 
+import static android.R.attr.data;
 import static com.hidden.mohamedwahabi.hiddenfbpictures.Main2Activity.albumPic;
 import static com.hidden.mohamedwahabi.hiddenfbpictures.MainActivity.albumListFb;
 
@@ -52,6 +60,7 @@ GridView gridView;
     public static ArrayList<picturesClass> albumPage=new ArrayList<picturesClass>();
     int num_item_picturs= 0;
       Pagination page;
+
 
 
 
@@ -90,34 +99,60 @@ GridView gridView;
     public boolean onOptionsItemSelected(MenuItem item) {
         int id=item.getItemId();
         if(id==R.id.niceicone) {
+            final ProgressDialog progress=new ProgressDialog(this);
+            progress.setMessage("Upload to Firebase");
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setProgress(0);
+            progress.show();
+            progress.setMax(albumPic.size());
+            final int totalProgressTime = albumPic.size();
+
             FirebaseStorage  storage = FirebaseStorage.getInstance();
-            StorageReference   storageReference=storage.getReference("gs://hiddenfbpictures.appspot.com");
-            StorageReference  mapice=storageReference.child("images/image1.jpg");
+            StorageReference   storageReference=storage.getReferenceFromUrl("gs://hiddenfbpictures.appspot.com/"+Profile.getCurrentProfile().getId()+"/"+getIntent().getStringExtra("nameofalbum")+"/");
+            ImageView loadimage = (ImageView)findViewById(R.id.uploadImg);
+            Toast.makeText(this, ""+albumPic.size(), Toast.LENGTH_SHORT).show();
+            for (int i=0;i<albumPic.size();i++) {
+                StorageReference  mapice=storageReference.child(albumPic.get(i).getId()+".jpg");
+                Picasso.with(getApplicationContext()).load(albumPic.get(i).getUrlpic()).into(loadimage);
+                loadimage.setDrawingCacheEnabled(true);
+                loadimage.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) loadimage.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data = baos.toByteArray();
 
-            InputStream stream = null;
-            try {
-                stream = new FileInputStream(new File(albumPic.get(0).getUrlpic()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                UploadTask uploadTask = mapice.putBytes(data);
+                final int finalI = i;
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        Toast.makeText(MainPictures.this, getResources().getString(R.string.upload_prob) + exception, Toast.LENGTH_SHORT).show();
+                        progress.dismiss();
+
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        if(finalI==albumPic.size()-2)
+                        {
+                            Toast.makeText(MainPictures.this, getResources().getString(R.string.upload_finish), Toast.LENGTH_SHORT).show();
+                            progress.dismiss();
+                        }
+
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        progress.setProgress(finalI +1);
+
+
+
+                    }
+                });
             }
-
-          UploadTask  uploadTask = mapice.putStream(stream);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                    Toast.makeText(MainPictures.this, "bad", Toast.LENGTH_SHORT).show();
-
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                    Toast.makeText(MainPictures.this, "nice", Toast.LENGTH_SHORT).show();
-                }
-            });
-
                }
         return super.onOptionsItemSelected(item);
     }
@@ -162,7 +197,7 @@ GridView gridView;
                           dialog.setCancelable(true);
                           dialog.show();
                           ImageView imageone=(ImageView)dialog.findViewById(R.id.imafeFullScreen);
-                          Picasso.with(getApplicationContext()).load(picList.get(position).getUrlpic()).into(imageone);
+                        Picasso.with(getApplicationContext()).load(picList.get(position).getUrlpic()).into(imageone);
 
                       }
                   });
@@ -189,8 +224,6 @@ GridView gridView;
         count=  page.prevpage(count,albumPage,btn_next,btn_prev);
         allListItems();
     }
-
-
 
 
 
