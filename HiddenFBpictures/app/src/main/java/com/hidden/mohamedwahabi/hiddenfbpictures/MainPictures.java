@@ -78,7 +78,7 @@ GridView gridView;
         setContentView(R.layout.activity_main_pictures);
         gridView=(GridView)findViewById(R.id.pictlist);
         getSupportActionBar().setTitle(getIntent().getStringExtra("nameofalbum"));
-        num_item_picturs= Integer.parseInt(getResources().getString(R.string.name_of_item_in_page_pictures));
+        num_item_picturs= getResources().getInteger(R.integer.name_of_item_in_page_pictures);
         btn_prev     = (Button)findViewById(R.id.prev);
         btn_next     = (Button)findViewById(R.id.next);
         page=new Pagination(albumPic,num_item_picturs);

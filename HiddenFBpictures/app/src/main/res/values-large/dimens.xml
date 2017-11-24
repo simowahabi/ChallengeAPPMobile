@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_all">8dp</dimen>
+    <dimen name="padding_all">8dp</dimen>
+    <dimen name="grid_margin_one">5dp</dimen>
+    <dimen name="grid_pict_one">2dp</dimen>
+    <dimen name="stroke_button">2dp</dimen>
+    <dimen name="raduis_button">15dp</dimen>
+    <dimen name="raduis_pic_album">8dp</dimen>
+    <dimen name="album_height">150dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="text_size1">22dp</dimen>
+    <dimen name="text_size2">15dp</dimen>
+    <integer name="num_rows">3</integer>
+    <integer name="name_of_item_in_page_albumss">8</integer>
+    <integer name="name_of_item_in_page_picturess">15</integer>
+
+</resources>

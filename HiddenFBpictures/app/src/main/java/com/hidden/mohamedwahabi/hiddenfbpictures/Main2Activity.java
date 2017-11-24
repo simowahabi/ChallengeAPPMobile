@@ -67,7 +67,7 @@ public class Main2Activity extends AppCompatActivity {
         getSupportActionBar().setTitle(Profile.getCurrentProfile().getName()+"'s albums");
         btn_prev     = (Button)findViewById(R.id.prev);
         btn_next     = (Button)findViewById(R.id.next);
-        num_item_albums= Integer.parseInt(getResources().getString(R.string.name_of_item_in_page_albums));
+        num_item_albums= getResources().getInteger(R.integer.name_of_item_in_page_albums);
         LoginManager.getInstance().logInWithReadPermissions(
                 this,
                 Arrays.asList("user_photos"));

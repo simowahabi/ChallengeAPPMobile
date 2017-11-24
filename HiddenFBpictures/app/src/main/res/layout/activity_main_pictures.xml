@@ -17,7 +17,7 @@
     <GridView
         android:layout_weight="50"
         android:id="@+id/pictlist"
-        android:numColumns="2"
+        android:numColumns="@integer/num_rows"
         android:verticalSpacing="@dimen/grid_pict_one"
         android:horizontalSpacing="@dimen/grid_pict_one"
         android:stretchMode="columnWidth"

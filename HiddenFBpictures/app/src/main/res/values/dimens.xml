@@ -11,4 +11,7 @@
     <dimen name="small_margin">2dp</dimen>
     <dimen name="text_size1">15dp</dimen>
     <dimen name="text_size2">10dp</dimen>
+    <integer name="num_rows">2</integer>
+    <integer name="name_of_item_in_page_albumss">6</integer>
+    <integer name="name_of_item_in_page_picturess">12</integer>
 </resources>
