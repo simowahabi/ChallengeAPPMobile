@@ -51,6 +51,7 @@ public class Main2Activity extends AppCompatActivity {
     Button btn_next;
     int count=0;
     int num_item_albums= 0;
+    Pagination page;
 
 
     public static ArrayList<albumClass> albumOnePage=new ArrayList<albumClass>();
@@ -70,8 +71,10 @@ public class Main2Activity extends AppCompatActivity {
         LoginManager.getInstance().logInWithReadPermissions(
                 this,
                 Arrays.asList("user_photos"));
+        page=new Pagination(albumListFb,num_item_albums);
 
-        chargePicture();
+        page.charge(count,num_item_albums,albumOnePage,btn_next,btn_prev);
+        allListItems();
 
 
     }
@@ -87,19 +90,9 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
-
             return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id=item.getItemId();
-        if (id== R.id.userPic) {
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 
@@ -150,21 +143,25 @@ public class Main2Activity extends AppCompatActivity {
             final View view = layoutInflater.inflate(R.layout.albumrow, null);
             TextView albumName=(TextView)view.findViewById(R.id.covertitle);
             TextView covernumpic=(TextView)view.findViewById(R.id.covernumpic);
-            covernumpic.setText(mylist.get(position).getCountpic());
+            covernumpic.setText(mylist.get(position).getCountpic()+" photos ");
             final ImageView albumImage=(ImageView) view.findViewById(R.id.coverAlbum);
             albumName.setText(mylist.get(position).getName());
             Picasso.with(getApplicationContext()).load(mylist.get(position).getSource()).resize(200,120).centerCrop().into(albumImage);
             albumImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    albumImage.setClickable(false);
-                    findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-                    findViewById(R.id.viewid).setVisibility(View.VISIBLE);
-                    nameofalbum=mylist.get(position).getName();
-                    getAllpic(mylist.get(position).getId());
-                    mathread th1=new mathread();
-                    th1.start();
-
+              if(Integer.parseInt(mylist.get(position).getCountpic())>0) {
+                  view.setClickable(false);
+                  findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                  findViewById(R.id.viewid).setVisibility(View.VISIBLE);
+                  nameofalbum = mylist.get(position).getName();
+                  getAllpic(mylist.get(position).getId());
+                  mathread th1 = new mathread();
+                  th1.start();
+              }
+              else {
+                  Toast.makeText(Main2Activity.this, "" + getResources().getString(R.string.sorry_pictures_0), Toast.LENGTH_SHORT).show();
+              }
 
                 }
             });
@@ -254,84 +251,14 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void chargePicture(){
-        albumOnePage.clear();
-
-
-        if(albumListFb.size()<=num_item_albums)
-            for (int i=count;i<albumListFb.size();i++){
-                albumOnePage.add(albumListFb.get(i));
-            }
-        else
-            for (int i=0;i<num_item_albums;i++){
-                albumOnePage.add(albumListFb.get(i));
-            }
-        allListItems();
-        checkButtons();
-    }
     public void Next(View view) {
-        int var=num_item_albums;
-        count+=num_item_albums;
-
-        if(count+num_item_albums>=albumListFb.size())
-            var=(albumListFb.size()-count);
-
-        albumOnePage.clear();
-        for (int i=count;i<count+var;i++){
-            albumOnePage.add(albumListFb.get(i));
-        }
+        count=  page.newtpage(count,albumOnePage,btn_next,btn_prev);
         allListItems();
-        checkButtons();
     }
 
     public void Prev(View view) {
-        count-=num_item_albums;
-        albumOnePage.clear();
-        for (int i=count;i<count+num_item_albums;i++){
-            albumOnePage.add(albumListFb.get(i));
-        }
+        count=  page.prevpage(count,albumOnePage,btn_next,btn_prev);
         allListItems();
-        checkButtons();
-    }
-    public void checkButtons(){
-        if(count+num_item_albums>=albumListFb.size()){
-            btn_next.setVisibility(View.GONE);
-        }
-        else{
-            btn_next.setVisibility(View.VISIBLE);
-        }
-
-        if(count<=0){
-            btn_prev.setVisibility(View.GONE);
-        }
-        else{
-            btn_prev.setVisibility(View.VISIBLE);
-
-        }
-
     }
 
 }

@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        Picasso.with(this).load(Profile.getCurrentProfile().getProfilePictureUri(800, 800)).into(imageView);
 
     }
 
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                         jarray.getJSONObject(i).get("id").toString(),
                                         "0",
                                         jarray.getJSONObject(i).get("name").toString(),
-                                                jarray.getJSONObject(i).get("count").toString()+" photos"
+                                                jarray.getJSONObject(i).get("count").toString()
 
                                 );
                                 albumListFb.add(objectAlcumClass);
@@ -169,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
             );
-
             Bundle parameters = new Bundle();
             parameters.putString("fields", "source");
             magraphe2.setParameters(parameters);
@@ -177,15 +175,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
     public class mathread extends Thread{
@@ -202,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                        finish();
                     }
                 });
             }}}

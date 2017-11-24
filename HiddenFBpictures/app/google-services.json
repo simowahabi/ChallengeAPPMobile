@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "824176394336",
+    "firebase_url": "https://hiddenfbpictures.firebaseio.com",
+    "project_id": "hiddenfbpictures",
+    "storage_bucket": "hiddenfbpictures.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824176394336:android:e4ace3cb7667df9d",
+        "android_client_info": {
+          "package_name": "com.hidden.mohamedwahabi.hiddenfbpictures"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824176394336-m5q5qo557j5hol80unvamq5f5t2enpvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hidden.mohamedwahabi.hiddenfbpictures",
+            "certificate_hash": "a6ca0958d38ec067c33783f110e06c278d83e5a3"
+          }
+        },
+        {
+          "client_id": "824176394336-p6vt8jpb92tdebvnm677ij8k4vqmq2np.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8STYsGGdHHCEif55T1Y3HCCw8pv_6pSo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "824176394336-p6vt8jpb92tdebvnm677ij8k4vqmq2np.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
