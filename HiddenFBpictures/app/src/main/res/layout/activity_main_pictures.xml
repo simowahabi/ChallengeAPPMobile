@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hidden.mohamedwahabi.hiddenfbpictures.MainPictures">
+    tools:context="com.hidden.mohamedwahabi.hiddenfbpictures.activites.MainPictures">
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:onClick="Prev"
+            android:onClick="prev"
             android:text="Previews"
             android:id="@+id/prev"
             android:layout_weight="5"
@@ -46,7 +46,7 @@
             style="@style/butStyle"
             android:layout_height="match_parent" />
         <Button
-            android:onClick="Next"
+            android:onClick="next"
             android:text="Next"
             android:id="@+id/next"
             android:layout_weight="5"

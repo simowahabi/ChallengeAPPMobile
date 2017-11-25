@@ -1,25 +1,21 @@
-package com.hidden.mohamedwahabi.hiddenfbpictures;
+package com.hidden.mohamedwahabi.hiddenfbpictures.classes;
 
 /**
  * Created by wahabiPro on 11/21/2017.
  */
 
-public class albumClass {
-    String id,source,name,countpic;
+public class AlbumClass {
+    String id, source, name, countpic;
 
-    public albumClass(String id, String source, String name,String countpic) {
+    public AlbumClass(String id, String source, String name, String countpic) {
         this.id = id;
         this.source = source;
         this.name = name;
-        this.countpic=countpic;
+        this.countpic = countpic;
     }
 
     public String getCountpic() {
         return countpic;
-    }
-
-    public void setCountpic(String countpic) {
-        this.countpic = countpic;
     }
 
     public String getId() {
