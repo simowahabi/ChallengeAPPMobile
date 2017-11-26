@@ -2,10 +2,13 @@ package com.hidden.mohamedwahabi.hiddenfbpictures.activites;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,6 +37,8 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static com.hidden.mohamedwahabi.hiddenfbpictures.activites.Main2Activity.albumPic;
+
 public class MainPictures extends AppCompatActivity {
     //arraylist of the pictures in one page
     public static ArrayList<PicturesClass> albumPage = new ArrayList<PicturesClass>();
@@ -58,7 +63,7 @@ public class MainPictures extends AppCompatActivity {
         num_item_picturs = getResources().getInteger(R.integer.name_of_item_in_page_pictures);
         btnPrev = (Button) findViewById(R.id.prev);
         btnNext = (Button) findViewById(R.id.next);
-        page = new Pagination(Main2Activity.albumPic, num_item_picturs);
+        page = new Pagination(albumPic, num_item_picturs);
         page.charge(count, num_item_picturs, albumPage, btnNext, btnPrev);
         //change actionbar name to name the album
         getSupportActionBar().setTitle(getIntent().getStringExtra("nameAlbum"));
@@ -72,7 +77,7 @@ public class MainPictures extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //clear my albumPic list when the user back to Mai2Activity
-        Main2Activity.albumPic.clear();
+        albumPic.clear();
         super.onBackPressed();
     }
 
@@ -93,18 +98,19 @@ public class MainPictures extends AppCompatActivity {
         if (id == R.id.niceicone) {
             //progress for count the progressing of upload
             final ProgressDialog progress = new ProgressDialog(this);
+            progress.setCanceledOnTouchOutside(false);
             progress.setMessage("Upload to Firebase");
             progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progress.setProgress(0);
             progress.show();
-            progress.setMax(Main2Activity.albumPic.size());
+            progress.setMax(albumPic.size());
             // Create a storage reference from our app
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://hiddenfbpictures.appspot.com/" + Profile.getCurrentProfile().getId() + "/" + getIntent().getStringExtra("nameAlbum") + "/");
             ImageView loadimage = (ImageView) findViewById(R.id.uploadImg);
-            for (int i = 0; i < Main2Activity.albumPic.size(); i++) {
-                StorageReference mapice = storageReference.child(Main2Activity.albumPic.get(i).getId() + ".jpg");
-                Picasso.with(getApplicationContext()).load(Main2Activity.albumPic.get(i).getUrlpic()).into(loadimage);
+            for (int i = 0; i < albumPic.size(); i++) {
+                StorageReference mapice = storageReference.child(albumPic.get(i).getId() + ".jpg");
+                Picasso.with(getApplicationContext()).load(albumPic.get(i).getUrlpic()).into(loadimage);
                 loadimage.setDrawingCacheEnabled(true);
                 loadimage.buildDrawingCache();
                 // Get the data from an ImageView as bytes
@@ -125,7 +131,7 @@ public class MainPictures extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        if (finalI == Main2Activity.albumPic.size() - 2) {
+                        if (finalI == albumPic.size() - 2 ||albumPic.size()==1 ) {
                             Toast.makeText(MainPictures.this, getResources().getString(R.string.upload_finish), Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                         }
@@ -138,6 +144,13 @@ public class MainPictures extends AppCompatActivity {
                     }
                 });
             }
+            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    Toast.makeText(MainPictures.this, ""+getResources().getString(R.string.upload_prob), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainPictures.this,Main2Activity.class));
+                        }
+            });
         }
         return super.onOptionsItemSelected(item);
     }

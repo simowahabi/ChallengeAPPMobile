@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activites.Main2Activity" android:screenOrientation="portrait" />
-        <activity android:name=".activites.MainPictures" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activites.MainPictures" ></activity>
     </application>
 
 </manifest>
