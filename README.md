@@ -1,18 +1,34 @@
 # ChallengeAPPMobile
 
-how to open this project ?
-upload this project into android studio
-if android studio required to you any upload or update to an API or something ,you must do it
-congratulation . now the project in your computer 
-if to want run this app apk to your Phone send me message to my Gmail.
-i will add you as devloper , after that you must send me your keyhash for adding it to FAcebookDevloper or add it by yourself
+ ## introduction  
+ - This is a small mobile app powered by Facebook API. The goal of the app is to let users browse and export their Facebook albums and photos.
+   
+   ----   
+ ## Prerequisites
+ - Android Studio
+ - java jdk
+ - Facebook Developer Account
+ 
+   ----
+ ## How to open ?
+ 1. git clone this project.
+ 2. import the project to Android Studio.
+ 3. if Android Studio required to you any upload or update to an API or something , do it.
+ 4. send me message to **simowahabi@gmail.com** containts your FacebookDevloper Account for add you as devloper 
+ 5. run Application via your Phone
+ 6. send me your keyhash for adding it to FAcebookDevloper or add it by yourself 
+ 
+     ------------------------  
+### note: 
+* You can skip the steps 4,5,6 but you must create new project in [facebookDevloper](https://developers.facebook.com/) and follow the steps 
+* finally change id_app_facebook in your Strings file
+   ```
+   <string name="facebook_app_id">1844169422560571</string>
+   ```
+### License:
+```
+ Copyright 2017 Wahabi Mohamed for HiddenFounders challenge
+```
 
-/-----------------/
-this app conteant 
-1-When the user lauches the app for the first time, he should be able to sign in with Facebook and grant access to his Facebook albums & photos.
-2-After sign in & linking his Facebook account, the user should be able to see on the app home screen a grid/list of his albums from Facebook. The grid of albums should be paginated.
-3-The user should be able to click on an album and show a grid of photos inside that album (grid of photos should be paginated).
-4-The user should also be able to click on a photo to preview it full-screen.
-5-The user should be able to select an album and export/upload all the photos inside that album to Firebase Storage.
-
-#By Mohamed wahabi ENSAH simowahabi@gmail.com
+### Developed By :
+* Mohamed wahabi ENSAH simowahabi@gmail.com
